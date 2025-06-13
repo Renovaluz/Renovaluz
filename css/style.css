@@ -1,0 +1,581 @@
+/* --- VARIAVEIS GLOBAIS DE DESIGN --- */
+:root {
+    /* Paleta de Cores - Modo Claro (Default) */
+    --brand-gradient: linear-gradient(45deg, #00A94F, #007A3B);
+    --primary-color: #008542;
+    --primary-light: #e6f3ec;
+    --primary-dark: #005f2b;
+
+    --bg-color: #f8f9fa;
+    --surface-color: #ffffff;
+    --text-color-primary: #212529;
+    --text-color-secondary: #6c757d;
+    --border-color: #dee2e6;
+    
+    /* Variaveis de UI */
+    --font-family: 'Poppins', sans-serif;
+    --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
+    --glow-primary: 0 0 25px rgba(0, 133, 66, 0.4);
+    --radius-md: 16px;
+    --radius-lg: 20px;
+    --transition-speed: 0.4s;
+    --transition-curve: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* --- MODO ESCURO --- */
+[data-theme="dark"] {
+    --brand-gradient: linear-gradient(45deg, #00C65C, #00914A);
+    --primary-color: #00A94F;
+    --primary-light: #1a3325;
+    --primary-dark: #007A3B;
+
+    --bg-color: #121212;
+    --surface-color: #1e1e1e;
+    --text-color-primary: #e0e0e0;
+    --text-color-secondary: #a0a0a0;
+    --border-color: #333333;
+
+    --glow-primary: 0 0 30px rgba(0, 200, 92, 0.5);
+}
+
+/* --- ESTILOS GLOBAIS --- */
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-color-primary);
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    color: var(--text-color-primary);
+    transition: color var(--transition-speed);
+}
+
+.section-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+.section-title::after {
+    content: '';
+    position: absolute; display: block; width: 80px; height: 5px;
+    background: var(--brand-gradient);
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+}
+.section-title.text-start::after { left: 0; transform: translateX(0); }
+.section-subtitle {
+    color: var(--text-color-secondary);
+    max-width: 650px; margin-left: auto; margin-right: auto;
+    font-size: 1.1rem; font-weight: 300;
+}
+
+section { overflow: hidden; }
+
+/* Adicionado para a seção ANGOTIC ter fundo consistente */
+#angotic { 
+    padding: 3rem 0;
+    background-color: var(--surface-color); 
+}
+
+/* --- NAVBAR (CÓDIGO EXISTENTE) --- */
+.navbar {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+    padding: 1rem 0;
+}
+.navbar.scrolled {
+    box-shadow: var(--shadow-md);
+    background: rgba(255, 255, 255, 0.85);
+}
+[data-theme="dark"] .navbar { background: rgba(30, 30, 30, 0.6); }
+[data-theme="dark"] .navbar.scrolled { background: rgba(30, 30, 30, 0.85); }
+.navbar-brand { font-weight: 800; font-size: 1.8rem; color: var(--primary-color) !important; }
+.navbar-brand .brand-dot { color: var(--text-color-primary); }
+.nav-link {
+    color: var(--text-color-secondary) !important; font-weight: 500; margin: 0 10px;
+    position: relative; transition: color 0.3s;
+}
+.nav-link:hover, .nav-link.active { color: var(--primary-color) !important; }
+
+/* ... (Restante do CSS de Navbar, botões, etc, permanece o mesmo) ... */
+
+/* --- HERO (CÓDIGO EXISTENTE) --- */
+#hero-carousel .carousel-item { height: 100vh; min-height: 700px; background-size: cover; background-position: center; }
+#hero-carousel .carousel-item::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.2));
+}
+#hero-carousel .carousel-caption { bottom: 50%; transform: translate(-50%, 50%); text-align: center; max-width: 80%; left: 50%; }
+#hero-carousel .carousel-caption h1 { color: white !important; }
+
+
+/* --- CARDS DE SERVIÇO (CÓDIGO EXISTENTE) --- */
+.service-card {
+    background: var(--surface-color); padding: 30px 20px; border-radius: var(--radius-lg); text-align: center;
+    border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
+    transition: all var(--transition-speed) var(--transition-curve); height: 100%;
+}
+.service-card:hover { transform: translateY(-10px); box-shadow: var(--glow-primary); border-color: var(--primary-color); }
+.service-card .icon-wrapper {
+    width: 70px; height: 70px; margin: 0 auto 20px auto;
+    background: var(--brand-gradient); border-radius: 50%; display: flex;
+    align-items: center; justify-content: center; transition: all 0.3s ease;
+}
+.service-card .icon-wrapper i { font-size: 2.2rem; color: white; }
+.service-card:hover .icon-wrapper { transform: scale(1.1) rotate(15deg); }
+.service-card h3 { margin-bottom: 15px; font-size: 1.25rem; font-weight: 600; color: var(--text-color-primary); }
+.service-card p { font-size: 0.95rem; }
+
+
+/* === NOVO: ESTILOS PARA O CARROSSEL ROBUSTO DA ANGOTIC === */
+#angotic-carousel {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    margin: 0 auto;
+    max-width: 1200px; /* Limita a largura máxima em telas grandes */
+}
+
+#angotic-carousel .carousel-item {
+    height: 60vh;
+    min-height: 500px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    transition: transform .8s ease-in-out;
+}
+
+#angotic-carousel .carousel-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 40%, transparent 100%);
+    z-index: 1;
+}
+
+#angotic-carousel .angotic-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    color: #fff;
+    padding: 3rem 4rem;
+    width: 60%;
+    display: flex;
+    align-items: center;
+}
+
+.angotic-caption .caption-tag {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 6px 15px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.angotic-caption .caption-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: white !important;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.angotic-caption .caption-text {
+    font-size: 1rem;
+    font-weight: 300;
+    opacity: 0.8;
+    max-width: 500px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* Animações para os textos do slide */
+.carousel-item.active .caption-tag {
+    animation: slideUp 0.8s 0.3s forwards cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.carousel-item.active .caption-title {
+    animation: slideUp 0.8s 0.5s forwards cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.carousel-item.active .caption-text {
+    animation: slideUp 0.8s 0.7s forwards cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos dos controles do carrossel */
+#angotic-carousel .carousel-indicators [data-bs-target] {
+    width: 10px; height: 10px; border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255,255,255,0.7);
+    margin: 0 5px;
+}
+#angotic-carousel .carousel-indicators .active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+#angotic-carousel .carousel-control-prev-icon,
+#angotic-carousel .carousel-control-next-icon {
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 50%;
+    width: 3.5rem; height: 3.5rem;
+    background-size: 50%;
+    transition: background-color 0.3s;
+}
+#angotic-carousel .carousel-control-prev-icon:hover,
+#angotic-carousel .carousel-control-next-icon:hover {
+    background-color: var(--primary-color);
+}
+
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 991.98px) {
+    .section-title { font-size: 2.4rem; }
+    #hero-carousel .carousel-caption h1 { font-size: 2.8rem; }
+    #angotic-carousel .angotic-caption { width: 80%; padding: 2rem; }
+    #angotic-carousel .caption-title { font-size: 2rem; }
+}
+
+@media (max-width: 767.98px) {
+    body { scroll-padding-top: 70px; }
+    .section-title { font-size: 2rem; }
+    #hero-carousel .carousel-caption h1 { font-size: 2.2rem; }
+    .navbar-collapse {
+        background: var(--surface-color); border-radius: var(--radius-md);
+        padding: 20px; margin-top: 10px; box-shadow: var(--shadow-lg);
+    }
+
+    /* === ATUALIZADO: ESTILOS PARA CARDS DE SERVIÇO 2X2 EM MOBILE === */
+    .service-card {
+        padding: 20px 15px; /* Mais padding vertical */
+    }
+    .service-card .icon-wrapper {
+        width: 55px; /* Ícone um pouco maior */
+        height: 55px;
+        margin-bottom: 15px;
+    }
+    .service-card .icon-wrapper i {
+        font-size: 1.8rem;
+    }
+    .service-card h3 {
+        font-size: 1rem; /* Fonte do título maior */
+        margin-bottom: 8px;
+    }
+    .service-card p {
+        font-size: 0.85rem; /* Fonte do parágrafo legível */
+        line-height: 1.5;
+    }
+
+    /* Ajustes no carrossel ANGOTIC para mobile */
+    #angotic-carousel .carousel-item { height: 80vh; }
+    #angotic-carousel .angotic-caption {
+        width: 100%;
+        padding: 2rem 1.5rem;
+        text-align: center;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 50%, transparent 100%);
+        align-items: flex-end; /* Alinha o conteúdo na base */
+    }
+     #angotic-carousel .caption-content { width: 100%; }
+    #angotic-carousel .caption-title { font-size: 1.8rem; }
+    #angotic-carousel .caption-text { font-size: 0.9rem; max-width: 100%; }
+    #angotic-carousel .carousel-control-prev,
+    #angotic-carousel .carousel-control-next { display: none; } /* Ocultar setas em mobile */
+}
+
+/* O restante do seu CSS para galeria, portfólio, etc., continua aqui... */
+
+
+/* --- CTA APP --- */
+#cta-app { background: var(--brand-gradient); color: white; position: relative; }
+#cta-app::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+#cta-app h2, #cta-app p { color: white !important; }
+.badge-app { background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 50px; font-weight: 600; }
+.app-features { list-style: none; padding-left: 0; }
+.app-features li { margin-bottom: 12px; display: flex; align-items: center; font-size: 1.1rem; }
+.app-features i { margin-right: 12px; font-size: 1.5rem; }
+.app-store-buttons a { display: inline-block; height: 50px; margin-right: 15px; }
+.app-store-buttons img { height: 100%; transition: transform 0.3s; }
+.app-store-buttons img:hover { transform: scale(1.05); }
+.app-carousel-inner { text-align: center; }
+.app-carousel-inner img { max-height: 500px; width: auto; display: inline-block !important; }
+
+/* --- GALERIA --- */
+.gallery-item {
+    display: block; position: relative; overflow: hidden;
+    border-radius: var(--radius-md); box-shadow: var(--shadow-md);
+}
+.gallery-item img {
+    width: 100%; aspect-ratio: 1/1; object-fit: cover;
+    transition: transform 0.5s var(--transition-curve);
+}
+.gallery-item::after {
+    content: '\F4D4'; font-family: 'bootstrap-icons';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    font-size: 2.5rem; color: white; background: rgba(0, 133, 66, 0.7);
+    width: 60px; height: 60px; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; transition: all 0.5s var(--transition-curve);
+}
+.gallery-item:hover img { transform: scale(1.1); }
+.gallery-item:hover::after { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+/* --- PORTFOLIO --- */
+.portfolio-card {
+    position: relative; border-radius: var(--radius-lg);
+    overflow: hidden; background-size: cover; background-position: center;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    display: flex; align-items: flex-end; color: white;
+    height: 400px;
+}
+.portfolio-card::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
+    opacity: 0.8; transition: opacity 0.4s ease;
+}
+.portfolio-card:hover { transform: translateY(-12px); box-shadow: var(--shadow-lg); }
+.portfolio-card:hover::after { opacity: 1; }
+.portfolio-card .card-content { position: relative; z-index: 2; width: 100%; padding: 25px; }
+.portfolio-card h5 { color: white !important; font-weight: 700; font-size: 1.25rem; }
+.portfolio-card p { opacity: 0.8; }
+.portfolio-card .badge { margin-bottom: 10px; }
+.btn-details {
+    color: var(--primary-color); font-weight: 600; text-decoration: none;
+    margin-top: 15px; display: inline-block;
+    opacity: 0; transform: translateY(20px);
+    transition: all 0.4s ease 0.2s;
+}
+.btn-details i { transition: transform 0.3s; }
+.btn-details:hover { color: white; }
+.btn-details:hover i { transform: translateX(5px); }
+.portfolio-card:hover .btn-details { opacity: 1; transform: translateY(0); }
+
+/* --- VÍDEOS E ESTATÍSTICAS --- */
+.video-carousel-inner { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); }
+.video-wrapper { position: relative; cursor: pointer; }
+.video-wrapper video { aspect-ratio: 16/9; object-fit: cover; }
+.play-button-overlay {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4);
+    display: flex; justify-content: center; align-items: center;
+    font-size: 5rem; color: white; transition: all 0.3s ease; opacity: 1;
+}
+.video-wrapper.playing .play-button-overlay { opacity: 0; pointer-events: none; }
+.video-fullscreen-button {
+    position: absolute; bottom: 15px; right: 15px; color: white;
+    background-color: rgba(0,0,0,0.5); width: 40px; height: 40px; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 1.2rem; text-decoration: none; transition: all 0.3s ease;
+}
+.video-fullscreen-button:hover { background-color: var(--primary-color); transform: scale(1.1); }
+
+.stat-item h3 { font-size: 3rem; font-weight: 800; color: var(--primary-color); }
+.stat-item p { color: var(--text-color-secondary); font-weight: 500; }
+
+/* --- SOBRE NÓS E EQUIPE --- */
+.about-card {
+    background: var(--surface-color); padding: 30px; border-radius: var(--radius-md);
+    border-left: 5px solid; border-image: var(--brand-gradient) 1;
+    box-shadow: var(--shadow-sm); transition: all 0.3s ease;
+}
+.about-card:hover { transform: translateX(5px); box-shadow: var(--shadow-md); }
+.about-card h4 { color: var(--primary-color); margin-bottom: 10px; font-size: 1.3rem; }
+.about-card h4 i { margin-right: 12px; }
+
+.team-card {
+    background: var(--surface-color); text-align: center; border-radius: var(--radius-lg);
+    overflow: hidden; box-shadow: var(--shadow-md);
+    transition: all var(--transition-speed) var(--transition-curve); height: 100%;
+}
+.team-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); }
+.team-card img {
+    width: 100%; aspect-ratio: 1/1; object-fit: cover; object-position: top;
+    transition: transform 0.4s ease;
+}
+.team-card:hover img { transform: scale(1.05); }
+.team-info { padding: 25px 15px; }
+.team-name { font-weight: 700; color: var(--text-color-primary); font-size: 1.1rem; }
+.team-title { font-size: 0.8rem; color: var(--primary-color); font-weight: 500; text-transform: uppercase; }
+.team-social { margin-top: 15px; display: flex; justify-content: center; gap: 15px; }
+.team-social a { color: var(--text-color-secondary); font-size: 1.1rem; transition: all 0.3s ease; }
+.team-social a:hover { color: var(--primary-color); transform: scale(1.2); }
+
+/* --- FOOTER --- */
+footer {
+    background-color: var(--surface-color);
+    border-top: 1px solid var(--border-color);
+    color: var(--text-color-secondary);
+    transition: all var(--transition-speed);
+}
+[data-theme="dark"] footer { background-color: #1a1a1a; }
+.footer-brand { font-size: 2rem; font-weight: 800; color: var(--primary-color); }
+.footer-brand .brand-dot { color: var(--text-color-primary); }
+.footer-title { color: var(--text-color-primary); font-weight: 600; margin-bottom: 20px; }
+.footer-links a, .footer-contact a {
+    color: var(--text-color-secondary); text-decoration: none;
+    transition: all 0.3s ease; display: inline-block; margin-bottom: 10px;
+}
+.footer-links a:hover, .footer-contact a:hover { color: var(--primary-color); transform: translateX(5px); }
+.footer-contact li { display: flex; align-items: flex-start; margin-bottom: 15px; }
+.footer-contact i { color: var(--primary-color); margin-right: 15px; font-size: 1.2rem; margin-top: 5px; }
+.social-icons a {
+    color: var(--text-color-secondary); font-size: 1.5rem; margin-right: 20px;
+    transition: all 0.3s ease; display: inline-block;
+}
+.social-icons a:hover { color: var(--primary-color); transform: translateY(-3px); }
+footer .border-top { border-color: var(--border-color) !important; transition: border-color var(--transition-speed); }
+
+/* --- ANIMAÇÕES DE FADE --- */
+.fade-in {
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.8s var(--transition-curve), transform 0.8s var(--transition-curve);
+    transition-delay: var(--stagger-delay, 0s);
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+.animate-hero {
+    opacity: 0; animation-duration: 1s; animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 991.98px) {
+    .section-title { font-size: 2.4rem; }
+    #hero-carousel .carousel-caption h1 { font-size: 2.8rem; }
+}
+
+@media (max-width: 767.98px) {
+    body { scroll-padding-top: 70px; }
+    .section-title { font-size: 2rem; }
+    #hero-carousel .carousel-caption h1 { font-size: 2.2rem; }
+    .navbar-collapse {
+        background: var(--surface-color); border-radius: var(--radius-md);
+        padding: 20px; margin-top: 10px; box-shadow: var(--shadow-lg);
+    }
+    .theme-switch-wrapper { justify-content: flex-end; margin-top: 15px; }
+
+    /* --- AJUSTES PARA MATRIZ 3x3 EM MOBILE (COL-4) --- */
+    /* Para que isto funcione, as colunas no HTML devem ter a classe .col-4 */
+    /* Ex: <div class="col-4 col-md-6 col-lg-4"> */
+    
+    #servicos .row > *,
+    #portfolio .row > *,
+    #equipe .row > * {
+        flex: 0 0 auto;
+        width: 33.33333333%;
+    }
+
+    /* Ajustes finos para os cards em miniatura */
+    .service-card { padding: 15px 10px; }
+    .service-card .icon-wrapper { width: 40px; height: 40px; margin-bottom: 10px; }
+    .service-card .icon-wrapper i { font-size: 1.5rem; }
+    .service-card h3 { font-size: 0.8rem; margin-bottom: 5px; }
+    .service-card p { font-size: 0.7rem; line-height: 1.4; }
+
+    .portfolio-card { height: auto; aspect-ratio: 1 / 1.2; }
+    .portfolio-card .card-content { padding: 10px; }
+    .portfolio-card h5 { font-size: 0.8rem; margin-bottom: 2px; }
+    .portfolio-card p { font-size: 0.65rem; margin-bottom: 5px; }
+    .portfolio-card .badge { padding: 3px 6px; font-size: 0.6rem; margin-bottom: 0; }
+    .btn-details { display: none; } /* Ocultar botão de detalhes, muito pequeno */
+
+    .team-card .team-info { padding: 15px 5px; }
+    .team-card .team-name { font-size: 0.8rem; }
+    .team-card .team-title { font-size: 0.65rem; }
+    .team-card .team-social { margin-top: 8px; gap: 8px; }
+    .team-card .team-social a { font-size: 0.9rem; }
+    
+    /* Ajustes no carrossel ANGOTIC para mobile */
+    #angotic-carousel .carousel-inner { padding: 0; }
+    #angotic-carousel .carousel-control-prev,
+    #angotic-carousel .carousel-control-next { display: none; } /* Ocultar setas em mobile */
+}
+/* --- ESTILOS PARA OS MODAIS --- */
+.modal-content {
+    background-color: var(--surface-color);
+    color: var(--text-color-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 1.5rem;
+}
+
+.modal-title {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-body h6 {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.modal-body ul, .modal-body ol {
+    padding-left: 20px;
+    color: var(--text-color-secondary);
+}
+
+.btn-close {
+    filter: var(--bs-btn-close-white-filter); /* Garante que o 'X' seja visível no modo escuro */
+}
+[data-theme="light"] .btn-close {
+    filter: none;
+}
+/* DEPOIS */
+.btn-details {
+    display: inline-block; /* Garante que ele seja sempre visível */
+    padding: 3px 8px;
+    font-size: 0.6rem;
+    margin-top: 5px;
+    opacity: 1; /* Garante visibilidade imediata */
+    transform: translateY(0); /* Remove a animação de subida */
+}
+.btn-details i { display: none; } /* Oculta a seta que é muito pequena */
